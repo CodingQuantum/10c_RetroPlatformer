@@ -1,33 +1,38 @@
 
-/**
- * Beschreiben Sie hier die Klasse MAIN.
- * 
- * @author (Ihr Name) 
- * @version (eine Versionsnummer oder ein Datum)
- */
-public class MAIN
+class MAIN extends EVENT
 {
-    // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
-    private int x;
-
-    /**
-     * Konstruktor für Objekte der Klasse MAIN
-     */
-    public MAIN()
+    PLAYER player;
+    
+    //ruft Kostruktor von EVENT auf, erzeugt den Spieler
+    MAIN()
     {
-        // Instanzvariable initialisieren
-        x = 0;
+        super();
+        player = new PLAYER();
     }
-
-    /**
-     * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
-     * 
-     * @param  y    ein Beispielparameter für eine Methode
-     * @return        die Summe aus x und y
-     */
-    public int beispielMethode(int y)
+    
+    @Override
+    void KeyPressed(char key) //aktuell nur zum Testen
     {
-        // tragen Sie hier den Code ein
-        return x + y;
+        switch (key)
+        {
+            case 'D':
+              player.posx += player.speed;
+              break;
+            case 'A':
+              player.posx -= player.speed;
+              break;
+            case 'S':
+              player.posy += player.speed;
+              break;
+            case 'W':
+              player.posy -= player.speed;
+              break;
+        }
+    }
+    
+    @Override
+    void Process() //aktuell nur zum Testen
+    {
+        player.setPosition(player.posx, player.posy);
     }
 }
