@@ -1,4 +1,6 @@
 
+import java.awt.event.KeyEvent;
+
 class MAIN extends EVENT
 {
     PLAYER player;
@@ -11,28 +13,33 @@ class MAIN extends EVENT
     }
     
     @Override
-    void KeyPressed(char key) //aktuell nur zum Testen
+    public void keyPressed(KeyEvent key)
     {
-        switch (key)
+        char keyChar = key.getKeyChar();
+        
+        //sollte eine spielerrelevante Taste gedrückt worden sein, wird die KeyTrue-Methode des Spielers aufgerufen
+        if (keyChar == 'a' || keyChar == 'd' || keyChar == ' ')
         {
-            case 'D':
-              player.posx += player.speed;
-              break;
-            case 'A':
-              player.posx -= player.speed;
-              break;
-            case 'S':
-              player.posy += player.speed;
-              break;
-            case 'W':
-              player.posy -= player.speed;
-              break;
+            player.keyTrue(keyChar);
         }
     }
     
     @Override
-    void Process() //aktuell nur zum Testen
+    public void keyReleased(KeyEvent key)
     {
-        player.setPosition(player.posx, player.posy);
+        char keyChar = key.getKeyChar();
+        
+        //sollte eine spielerrelevante Taste losgelassen worden sein, wird die KeyFalse-Methode des Spielers aufgerufen
+        if (keyChar == 'a' || keyChar == 'd' || keyChar == ' ')
+        {
+            player.keyFalse(keyChar);
+        }
+    }
+    
+    @Override
+    void Process()
+    {
+        //bewegt den Spieler
+        player.movement();
     }
 }

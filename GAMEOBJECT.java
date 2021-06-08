@@ -1,4 +1,6 @@
 
+import java.awt.*;
+import javax.swing.*;
 
 public class GAMEOBJECT
 {
@@ -6,7 +8,8 @@ public class GAMEOBJECT
     int posy;
     int sizex;
     int sizey;
-    IMAGE texture;
+    ImageIcon texture;
+    JLabel gameObject;
     
     //erzeugt ein GAMEOBJECT an der angegebenen Position, setzt es auf die angegebene Größe und setzt die Textur auf die angegebene
     GAMEOBJECT(int initPosx, int initPosy, int initSizex, int initSizey, String path)
@@ -16,10 +19,11 @@ public class GAMEOBJECT
         sizex = initSizex;
         sizey = initSizey;
         
-        texture = new IMAGE(path);
-        texture.setSize(sizex, sizey);
-        texture.setLocation(posx, posy);
-        SCREEN.getScreen().add(texture);
+        texture = new ImageIcon(path);
+        gameObject = new JLabel(texture);
+        gameObject.setSize(sizex, sizey);
+        gameObject.setLocation(posx, posy);
+        SCREEN.getScreen().add(gameObject);
     }
     
     //setzt die Position eines GAMEOBJECTS
@@ -27,6 +31,6 @@ public class GAMEOBJECT
     {
         posx = newPosx;
         posy = newPosy;
-        texture.setLocation(posx, posy);
+        gameObject.setLocation(posx, posy);
     }
 }

@@ -1,11 +1,11 @@
 
-import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 
-class EVENT
+public class EVENT implements KeyListener
 {
     private Timer timer;
     private static final int frameRate = 60;
@@ -15,6 +15,7 @@ class EVENT
     EVENT()
     {
         screen = new SCREEN();
+        
         timer = new Timer (1000 / frameRate, new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -23,14 +24,7 @@ class EVENT
             }
         });
         
-        screen.getScreen().addKeyListener(new KeyAdapter() 
-        {
-            public void keyPressed(KeyEvent e)
-            {
-                KeyPressed((char)e.getKeyCode());
-            }
-        });
-        
+        screen.getScreen().addKeyListener(this);
         timer.start();
     }
     
@@ -40,8 +34,15 @@ class EVENT
         //Override in Main
     }
     
-    //wird bei Tastendruck aufgerufen
-    void KeyPressed(char key)
+    //werden beim Drücken/Loslassen einer Taste aufgerufen
+    public void keyReleased(KeyEvent key)
+    {
+        //Overrdide in Main
+    }
+    public void keyTyped(KeyEvent key)
+    {
+    }
+    public void keyPressed(KeyEvent key) 
     {
         //Override in Main
     }
