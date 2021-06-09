@@ -18,7 +18,7 @@ class SCREEN
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setVisible(true);
-        //window.setLayout(null);
+        window.setLayout(null);
         window.getContentPane().setBackground(new Color (43, 43, 43));
         window.setSize(xSize * tileSize, ySize * tileSize);
     }

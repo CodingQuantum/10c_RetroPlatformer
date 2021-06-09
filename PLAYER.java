@@ -1,17 +1,18 @@
 
 class PLAYER extends GAMEOBJECT
 {
-    int speed = 20;
+    int speed = 9;
     int jumpSpeed = 20;
     int gravity = 2;
     int vely = 0;
     int velx = 0;
-    boolean a, d, space, onGround;
+    private boolean a, d, space, onGround;
+    int groundHeigth = 300; //nur zum Testen
     
     //erzeugt ein GAMEOBJECT mit Spielertextur und -größe
     PLAYER()
     {
-        super(0, 0, 26, 48, "player.png");
+        super(200, 300, 26, 48, "player.png");
         onGround = true;
     }
     
@@ -53,7 +54,11 @@ class PLAYER extends GAMEOBJECT
     void movement()
     {
         //setzt die horizontale Geschwindigkeit des Spielers
-        if (a == true)
+        if (d == true && a == true)
+        {
+            velx = 0;
+        }
+        else if (a == true)
         {
             velx = -speed;
         }
@@ -72,15 +77,15 @@ class PLAYER extends GAMEOBJECT
             vely = -jumpSpeed;
             onGround = false;
         }
-        if (onGround == false && posy <= 0)
+        if (onGround == false && posy <= groundHeigth)
         {
             vely += gravity;
         }
-        if (posy > 0 || posy + vely > 0)
+        if (posy > groundHeigth || posy + vely > groundHeigth)
         {
             vely = 0;
             onGround = true;
-            posy = 0;
+            posy = groundHeigth;
         }
         
         //bewegt den Spieler auf Basis der Geschwindigkeit
