@@ -4,14 +4,37 @@ import java.awt.event.KeyEvent;
 class MAIN extends EVENT
 {
     PLAYER player;
+    LEVELSEGMENT level;
+    int [] textures;
     
-    //ruft Kostruktor von EVENT auf, erzeugt den Spieler
+    //ruft Kostruktor von EVENT auf, erzeugt den Spieler und das Testlevel
     MAIN()
     {
         super();
-        player = new PLAYER();
+        
+        //erzeugt das Testlevel
+        textures = new int [144];
+        for (int i = 0; i < textures.length; i++)
+        {
+            if (i == 81)
+            {
+                textures[i] = 2;
+            }
+            else if (i <= 115)
+            {
+                textures[i] = 0;
+            }
+            else
+            {
+                textures[i] = 2;
+            }
+        }
+        
+        level = new LEVELSEGMENT(textures);
+        player = new PLAYER(textures);
     }
     
+    //wird beim Drücken einer Taste aufgerufen
     @Override
     public void keyPressed(KeyEvent key)
     {
@@ -24,6 +47,7 @@ class MAIN extends EVENT
         }
     }
     
+    //wird beim Loslassen einer Taste aufgerufen
     @Override
     public void keyReleased(KeyEvent key)
     {
@@ -36,6 +60,7 @@ class MAIN extends EVENT
         }
     }
     
+    //wird ein Mal pro Frame aufgerufen
     @Override
     void Process()
     {

@@ -11,7 +11,7 @@ public class EVENT implements KeyListener
     private static final int frameRate = 60;
     SCREEN screen;
     
-    //ruft Konstruktor von SCREEN auf, erzeugt den Timer für den Aufruf der Methode Process einmal pro Frame, verbindet das Drücken einer Taste mit KeyPressed
+    //ruft Konstruktor von SCREEN auf, erzeugt und startet den Timer für den Aufruf der Methode Process ein Mal pro Frame unf fügt einen KeyListener hinzu
     EVENT()
     {
         screen = new SCREEN();
@@ -28,7 +28,7 @@ public class EVENT implements KeyListener
         timer.start();
     }
     
-    //wird einmal pro Frame aufgerufen
+    //wird ein Mal pro Frame aufgerufen
     void Process()
     {
         //Override in Main
@@ -37,7 +37,7 @@ public class EVENT implements KeyListener
     //werden beim Drücken/Loslassen einer Taste aufgerufen
     public void keyReleased(KeyEvent key)
     {
-        //Overrdide in Main
+        //Override in Main
     }
     public void keyTyped(KeyEvent key)
     {

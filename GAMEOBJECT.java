@@ -21,9 +21,9 @@ public class GAMEOBJECT
         
         texture = new ImageIcon(path);
         gameObject = new JLabel(texture);
+        SCREEN.getScreen().add(gameObject);
         gameObject.setSize(sizex, sizey);
         gameObject.setLocation(posx, posy);
-        SCREEN.getScreen().add(gameObject);
     }
     
     //setzt die Position eines GAMEOBJECTS

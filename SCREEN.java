@@ -14,18 +14,36 @@ class SCREEN
     //erzeugt das Ausgabefenster
     SCREEN()
     {
+        System.setProperty("sun.java2d.uiScale", "1.0");
         window = new JFrame("Screen");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setVisible(true);
         window.setLayout(null);
-        window.getContentPane().setBackground(new Color (43, 43, 43));
-        window.setSize(xSize * tileSize, ySize * tileSize);
+        window.getContentPane().setBackground(new Color (135, 206, 250));
+        Insets i = window.getInsets();
+        window.setSize(xSize * tileSize, (ySize * tileSize) + i.top);
     }
     
     //gibt das Ausgabefenster zurück
     static JFrame getScreen()
     {
         return screen.window;
+    }
+    
+    //gibt die Größe einer Zelle zurück
+    static int getTileSize()
+    {
+        return tileSize;
+    }
+    //gibt die Anzahl an Zellen in einer Reihe zurück
+    static int getXSize()
+    {
+        return xSize;
+    }
+    //gibt die Anzahl an Spalten in einer Reihe zurück
+    static int getYSize()
+    {
+        return ySize;
     }
 }
