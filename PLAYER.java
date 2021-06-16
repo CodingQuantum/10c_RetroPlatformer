@@ -6,7 +6,7 @@ class PLAYER extends GAMEOBJECT
     int gravity = 2;
     int vely = 0;
     int velx = 0;
-    boolean a, d, space;
+    boolean a, d, num1, num3, space;
     boolean onGround = false;
     int textures [];
     
@@ -26,7 +26,13 @@ class PLAYER extends GAMEOBJECT
             case 'a':
               a = true;
               break;
+            case '1':
+              a = true;
+              break;
             case 'd':
+              d = true;
+              break;
+            case '3':
               d = true;
               break;
             case ' ':
@@ -43,7 +49,13 @@ class PLAYER extends GAMEOBJECT
             case 'a':
               a = false;
               break;
+            case '1':
+              a = false;
+              break;
             case 'd':
+              d = false;
+              break;
+            case '3':
               d = false;
               break;
             case ' ':

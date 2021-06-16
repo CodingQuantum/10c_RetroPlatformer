@@ -34,17 +34,18 @@ class MAIN extends EVENT
         player = new PLAYER(textures);
     }
     
+    public static void main(String[] args)
+    {
+        System.setProperty("sun.java2d.uiScale", "1.0");
+        MAIN main = new MAIN();
+    }
+    
     //wird beim Drücken einer Taste aufgerufen
     @Override
     public void keyPressed(KeyEvent key)
     {
         char keyChar = key.getKeyChar();
-        
-        //sollte eine spielerrelevante Taste gedrückt worden sein, wird die KeyTrue-Methode des Spielers aufgerufen
-        if (keyChar == 'a' || keyChar == 'd' || keyChar == ' ')
-        {
-            player.keyTrue(keyChar);
-        }
+        player.keyTrue(keyChar);
     }
     
     //wird beim Loslassen einer Taste aufgerufen
@@ -52,12 +53,7 @@ class MAIN extends EVENT
     public void keyReleased(KeyEvent key)
     {
         char keyChar = key.getKeyChar();
-        
-        //sollte eine spielerrelevante Taste losgelassen worden sein, wird die KeyFalse-Methode des Spielers aufgerufen
-        if (keyChar == 'a' || keyChar == 'd' || keyChar == ' ')
-        {
-            player.keyFalse(keyChar);
-        }
+        player.keyFalse(keyChar);
     }
     
     //wird ein Mal pro Frame aufgerufen
