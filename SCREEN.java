@@ -21,7 +21,7 @@ class SCREEN
         window.setLayout(null);
         window.getContentPane().setBackground(new Color(135, 206, 250));
         Insets i = window.getInsets();
-        window.setSize((xSize * tileSize), (ySize * tileSize) + i.top);
+        window.setSize((xSize * tileSize) + 18, (ySize * tileSize) + i.top + 9);
     }
     
     //gibt das Ausgabefenster zurück

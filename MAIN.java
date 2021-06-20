@@ -18,7 +18,7 @@ class MAIN extends EVENT
         {
             if (i == 81)
             {
-                textures[i] = 2;
+                textures[i] = 1;
             }
             else if (i <= 115)
             {
@@ -26,14 +26,15 @@ class MAIN extends EVENT
             }
             else
             {
-                textures[i] = 2;
+                textures[i] = 1;
             }
         }
         
-        level = new LEVELSEGMENT(textures);
         player = new PLAYER(textures);
+        level = new LEVELSEGMENT(textures, "bg.png", "testlevel.png");
     }
     
+    //sorgt für richtige Skalierung des Fensters, erzeugt ein Objekt der Klasse MAIN
     public static void main(String[] args)
     {
         System.setProperty("sun.java2d.uiScale", "1.0");
@@ -60,7 +61,13 @@ class MAIN extends EVENT
     @Override
     void Process()
     {
-        //bewegt den Spieler
-        player.movement();
+        //berechnet die virtuelle Position des Spielers
+        player.velocityCalculation(level.gameobjectOnGround(player));
+        int [] position = level.GameobjectCollision(player);
+        player.setVirtualPosition(position[0], position[1]);
+        
+        //setzt die tatsächliche Position aller nicht-Spieler-GAMEOBJECTs (Kameraverfolgung)
+        player.setRealPosition(480, player.posy);
+        level.setPosition(480 - player.posx, 0);
     }
 }

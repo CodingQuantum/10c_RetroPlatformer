@@ -8,6 +8,8 @@ public class GAMEOBJECT
     int posy;
     int sizex;
     int sizey;
+    int velx;
+    int vely;
     ImageIcon texture;
     JLabel gameObject;
     
@@ -16,8 +18,10 @@ public class GAMEOBJECT
     {
         posx = initPosx;
         posy = initPosy;
-        sizex = initSizex;
-        sizey = initSizey;
+        sizex = initSizex * SCREEN.getTileSize();
+        sizey = initSizey * SCREEN.getTileSize();
+        velx = 0;
+        vely = 0;
         
         texture = new ImageIcon(path);
         gameObject = new JLabel(texture);
@@ -32,5 +36,9 @@ public class GAMEOBJECT
         posx = newPosx;
         posy = newPosy;
         gameObject.setLocation(posx, posy);
+    }
+    public void setLocation(int newPosx, int newPosy)
+    {
+        gameObject.setLocation(newPosx, newPosy);
     }
 }

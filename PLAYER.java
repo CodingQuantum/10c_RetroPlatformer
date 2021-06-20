@@ -4,16 +4,13 @@ class PLAYER extends GAMEOBJECT
     int speed = 9;
     int jumpSpeed = 25;
     int gravity = 2;
-    int vely = 0;
-    int velx = 0;
     boolean a, d, num1, num3, space;
-    boolean onGround = false;
     int textures [];
     
     //erzeugt ein GAMEOBJECT mit Spielertextur und -größe
     PLAYER(int [] level)
     {
-        super(0, 0, 64, 128, "player.png");
+        super(0, 0, 1, 2, "player.png");
         textures = new int [144];
         textures = level;
     }
@@ -64,8 +61,8 @@ class PLAYER extends GAMEOBJECT
         }
     }
     
-    //bewegt den Spieler
-    void movement()
+    //berechnet die Geschwindigkeit des Spielers
+    void velocityCalculation(boolean onGround)
     {
         //berechet die vertikale Geschwindigkeit des Spielers
         if (space == true && onGround == true)
@@ -73,36 +70,13 @@ class PLAYER extends GAMEOBJECT
             vely = -jumpSpeed;
             onGround = false;
         }
-        if (onGround == false)
+        if (onGround == true)
+        {
+            vely = 0;
+        }
+        else if (onGround == false)
         {
             vely += gravity;
-        }
-        
-        //prüft auf vertikale Kollisionen
-        //sollte es im nächsten Frame zu einer Kollision kommen, wird der Spieler bis zum Kollisionspunkt bewegt und gestoppt
-        if (vely > 0)
-        {
-            if (checkForCollision(posx, posy + sizey - 1 + vely) == true || checkForCollision(posx + sizex - 1, posy + sizey - 1 + vely) == true)
-            {
-                vely = 0;
-                posy = (getYTile(posy - 1) + 1) * SCREEN.getTileSize();
-                onGround = true;
-            }
-        }
-        else if (vely == 0)
-        {
-            if (checkForCollision(posx, posy + sizey) == false && checkForCollision(posx + sizex - 1, posy + sizey) == false)
-            {
-                onGround = false;
-            }
-        }
-        else if (vely < 0)
-        {
-            if (checkForCollision(posx, posy + vely) == true || checkForCollision(posx + sizex - 1, posy + vely) == true)
-            {
-                vely = 0;
-                posy = getYTile(posy) * SCREEN.getTileSize();
-            }
         }
         
         //setzt die horizontale Geschwindigkeit des Spielers gemäß der gedrückten Tasten
@@ -122,85 +96,18 @@ class PLAYER extends GAMEOBJECT
         {
             velx = 0;
         }
-        
-        //prüft auf horizontale Kollisionen;
-        //sollte es im nächsten Frame zu einer Kollision kommen, wird der Spieler bis zum Kollisionspunkt bewegt und gestoppt
-        if (velx > 0)
-        {
-            if (checkForCollision(posx + sizex - 1 + velx, posy) == true || checkForCollision(posx + sizex - 1 + velx, posy + sizey / 2 - 1) == true
-            || checkForCollision(posx + sizex - 1 + velx, posy + sizey / 2) == true || checkForCollision(posx + sizex - 1 + velx, posy + sizey - 1) == true)
-            {
-                velx = 0;
-                posx = (getXTile(posx - 1) + 1) * SCREEN.getTileSize();
-            }
-        }
-        if (velx < 0)
-        {
-            if (checkForCollision(posx + velx, posy) == true || checkForCollision(posx + velx, posy + sizey / 2 - 1) == true
-            || checkForCollision(posx + velx, posy + sizey / 2) == true || checkForCollision(posx + velx, posy + sizey - 1) == true)
-            {
-                velx = 0;
-                posx = getXTile(posx) * SCREEN.getTileSize();
-            }
-        }
-        
-        //bewegt den Spieler auf Basis der Geschwindigkeit
-        setPosition(posx + velx, posy + vely);
     }
     
-    //prüft auf eine Kollision am angegebenen Punkt
-    boolean checkForCollision(int xPos, int yPos)
+    //verändert nur die Werte der Positions-Variablen
+    void setVirtualPosition(int newPosx, int newPosy)
     {
-        int x = getXTile(xPos);
-        int y = getYTile(yPos);
-        int index = 0;
-        
-        if (x >= 0 && x < 16 && y >= 0 && y < 9)
-        {
-            index = (y * SCREEN.getXSize()) + x;
-        }
-        else
-        {
-            return true;
-        }
-        
-        if (textures[index] == 0)
-        {
-            return false;
-        }
-        return true;
+        posx = newPosx;
+        posy = newPosy;
     }
-    
-    //gibt die x-Koordinate der Zelle zurück, in der sich die angegebene Position befindet
-    int getXTile(int xPos)
+    //verändert nur den Werte der grafischen Position
+    void setRealPosition(int newPosx, int newPosy)
     {
-        if (xPos < 0)
-        {
-            return -1;
-        }
-        
-        int x = 0;
-        while (xPos >= SCREEN.getTileSize())
-        {
-            xPos -= SCREEN.getTileSize();
-            x += 1;
-        }
-        return x;
-    }
-    //gibt die y-Koordinate der Zelle zurück, in der sich die angegebene Position befindet
-    int getYTile(int yPos)
-    {
-        if (yPos < 0)
-        {
-            return -1;
-        }
-        
-        int y = 0;
-        while (yPos >= SCREEN.getTileSize())
-        {
-            yPos -= SCREEN.getTileSize();
-            y += 1;
-        }
-        return y;
+        setLocation(newPosx, newPosy);
     }
 }
+    
