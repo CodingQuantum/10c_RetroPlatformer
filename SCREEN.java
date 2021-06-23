@@ -8,8 +8,7 @@ class SCREEN
     private static final int ySize = 9;
     private static final int xSize = 16;
     
-    private static SCREEN screen = null;
-    private static JFrame window = null;
+    private static JFrame window;
     
     //erzeugt das Ausgabefenster
     SCREEN()
@@ -27,7 +26,7 @@ class SCREEN
     //gibt das Ausgabefenster zurück
     static JFrame getScreen()
     {
-        return screen.window;
+        return window;
     }
     
     //gibt die Größe einer Zelle zurück

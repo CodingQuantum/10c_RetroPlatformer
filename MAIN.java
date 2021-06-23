@@ -13,22 +13,16 @@ class MAIN extends EVENT
         super();
         
         //erzeugt das Testlevel
-        textures = new int [144];
-        for (int i = 0; i < textures.length; i++)
-        {
-            if (i == 81)
-            {
-                textures[i] = 1;
-            }
-            else if (i <= 115)
-            {
-                textures[i] = 0;
-            }
-            else
-            {
-                textures[i] = 1;
-            }
-        }
+        textures = new int []
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
         
         player = new PLAYER(textures);
         level = new LEVELSEGMENT(textures, "bg.png", "testlevel.png");
