@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 class MAIN extends EVENT
 {
     PLAYER player;
-    LEVELSEGMENT level;
+    LEVELSEGMENT [] level;
     int [] textures;
     
     //ruft Kostruktor von EVENT auf, erzeugt den Spieler und das Testlevel
@@ -25,7 +25,9 @@ class MAIN extends EVENT
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
         
         player = new PLAYER(textures);
-        level = new LEVELSEGMENT(textures, "bg.png", "testlevel.png");
+        level = new LEVELSEGMENT [2];
+        level[0] = new LEVELSEGMENT(textures, "bg.png", "testlevel.png", 0);
+        level[1] = new LEVELSEGMENT(textures, "bg.png", "testlevel.png", 1);
     }
     
     //sorgt für richtige Skalierung des Fensters, erzeugt ein Objekt der Klasse MAIN
@@ -55,13 +57,26 @@ class MAIN extends EVENT
     @Override
     void Process()
     {
+        //berechnet das Levelsegment, in dem sich der Spieler befindet
+        int playerPos = player.posx;
+        int screenSizex = SCREEN.getXSize() * SCREEN.getTileSize();
+        int index = 0;
+        while (playerPos >= screenSizex)
+        {
+            playerPos -= screenSizex;
+            index += 1;
+        }
+        
         //berechnet die virtuelle Position des Spielers
-        player.velocityCalculation(level.gameobjectOnGround(player));
-        int [] position = level.GameobjectCollision(player);
+        player.velocityCalculation(level[index].gameobjectOnGround(player));
+        int [] position = level[index].GameobjectCollision(player);
         player.setVirtualPosition(position[0], position[1]);
         
         //setzt die tatsächliche Position aller nicht-Spieler-GAMEOBJECTs (Kameraverfolgung)
         player.setRealPosition(480, player.posy);
-        level.setPosition(480 - player.posx, 0);
+        for (int i = 0; i < level.length; i++)
+        {
+            level[i].setPosition(480 - player.posx + level[i].position, 0);
+        }
     }
 }

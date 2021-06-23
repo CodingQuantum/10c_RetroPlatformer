@@ -4,13 +4,15 @@ class LEVELSEGMENT
     GAMEOBJECT background;
     GAMEOBJECT level;
     int [] platforms;
+    int position;
     
     //übernimmt angegebene Level-Daten, erzeugt Hinter- und Vordergrund
-    LEVELSEGMENT(int [] initPlatforms, String backgroundPath, String levelPath)
+    LEVELSEGMENT(int [] initPlatforms, String backgroundPath, String levelPath, int id)
     {
         platforms = initPlatforms;
-        level = new GAMEOBJECT(0, 0, SCREEN.getXSize(), SCREEN.getYSize(), levelPath);
-        background = new GAMEOBJECT(0, 0, SCREEN.getXSize(), SCREEN.getYSize(), backgroundPath);
+        position = id * SCREEN.getXSize() * SCREEN.getTileSize();
+        level = new GAMEOBJECT(position, 0, SCREEN.getXSize(), SCREEN.getYSize(), levelPath);
+        background = new GAMEOBJECT(position, 0, SCREEN.getXSize(), SCREEN.getYSize(), backgroundPath);
     }
     
     //setzt die Position des Hinter- und Vordergrundes
@@ -145,6 +147,7 @@ class LEVELSEGMENT
         int x = 0;
         int y = 0;
         int index = 0;
+        posx -= position;
         
         while (posx >= SCREEN.getTileSize())
         {
@@ -176,6 +179,8 @@ class LEVELSEGMENT
         
         x *= SCREEN.getTileSize();
         y *= SCREEN.getTileSize();
+        
+        x += position;
         
         return new int [] {x, y};
     }
