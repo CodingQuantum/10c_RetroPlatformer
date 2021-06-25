@@ -14,7 +14,7 @@ public class GAMEOBJECT
     JLabel gameObject;
     
     //erzeugt ein GAMEOBJECT an der angegebenen Position, setzt es auf die angegebene Größe und setzt die Textur auf die angegebene
-    GAMEOBJECT(int initPosx, int initPosy, int initSizex, int initSizey, String path)
+    GAMEOBJECT(int initPosx, int initPosy, int initSizex, int initSizey, String path, int order)
     {
         posx = initPosx;
         posy = initPosy;
@@ -25,20 +25,27 @@ public class GAMEOBJECT
         
         texture = new ImageIcon(path);
         gameObject = new JLabel(texture);
-        SCREEN.getScreen().add(gameObject);
+        SCREEN.getLayeredPane().add(gameObject, new Integer(order));
         gameObject.setSize(sizex, sizey);
         gameObject.setLocation(posx, posy);
     }
     
-    //setzt die Position eines GAMEOBJECTS
+    //setzt die Position eines GAMEOBJECTs
     public void setPosition(int newPosx, int newPosy)
     {
         posx = newPosx;
         posy = newPosy;
         gameObject.setLocation(posx, posy);
     }
+    //setzt die grafische Position eines GAMEOBJECTs
     public void setLocation(int newPosx, int newPosy)
     {
         gameObject.setLocation(newPosx, newPosy);
+    }
+    
+    //entfernt die Grafik des GAMEOBJECTs vom Ausgabefenster
+    public void remove()
+    {
+        SCREEN.remove(gameObject);
     }
 }

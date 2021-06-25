@@ -1,25 +1,28 @@
 
 class LEVELSEGMENT
 {
-    GAMEOBJECT background;
     GAMEOBJECT level;
     int [] platforms;
     int position;
     
     //übernimmt angegebene Level-Daten, erzeugt Hinter- und Vordergrund
-    LEVELSEGMENT(int [] initPlatforms, String backgroundPath, String levelPath, int id)
+    LEVELSEGMENT(int [] initPlatforms, String levelPath, int id)
     {
         platforms = initPlatforms;
         position = id * SCREEN.getXSize() * SCREEN.getTileSize();
-        level = new GAMEOBJECT(position, 0, SCREEN.getXSize(), SCREEN.getYSize(), levelPath);
-        background = new GAMEOBJECT(position, 0, SCREEN.getXSize(), SCREEN.getYSize(), backgroundPath);
+        level = new GAMEOBJECT(position, 0, SCREEN.getXSize(), SCREEN.getYSize(), levelPath, 1);
     }
     
     //setzt die Position des Hinter- und Vordergrundes
     void setPosition(int newPosx, int newPosy)
     {
-        background.setPosition(newPosx, newPosy);
         level.setPosition(newPosx, newPosy);
+    }
+    
+    //entfernt die Grafik des Levels vom Ausgabefenster
+    void remove()
+    {
+        level.remove();
     }
     
     //berechnet die neue Position eines GAMEOBJECTs unter Berücksichtigung der Kollisionen
@@ -30,6 +33,32 @@ class LEVELSEGMENT
         int [] newPosition = new int [2];
         boolean xCollision = false;
         boolean yCollision = false;
+        
+        if (g.posx % 64 == 0 && g.posy % 64 == 0)
+        {
+            if (g.velx < 0 && g.vely < 0)
+            {
+                int index = checkForCollision(g.posx - 1, g.posy - SCREEN.getTileSize());
+                if (index >= 0)
+                {
+                    newPosition[0] = g.posx;
+                    newPosition[1] = g.posy;
+                    xCollision = true;
+                    yCollision = true;
+                }
+            }
+            else if (g.velx > 0 && g.vely < 0)
+            {
+                int index = checkForCollision(g.posx + g.sizex, g.posy - SCREEN.getTileSize());
+                if (index >= 0)
+                {
+                    newPosition[0] = g.posx;
+                    newPosition[1] = g.posy;
+                    xCollision = true;
+                    yCollision = true;
+                }
+            }
+        }
         
         if (g.vely > 0)
         {
@@ -132,6 +161,11 @@ class LEVELSEGMENT
     //überprüft, ob eine Kollision am angegebenen Punkt vorliegt
     int checkForCollision(int posx, int posy)
     {
+        if (posx > SCREEN.getXSize() * SCREEN.getTileSize() + position || posy > SCREEN.getYSize() * SCREEN.getTileSize() + position || posx < 0 || posy < 0)
+        {
+            return -1;
+        }
+        
         int index = getIndex(posx, posy);
         
         if (index < SCREEN.getXSize() * SCREEN.getYSize() && platforms[index] == 1)

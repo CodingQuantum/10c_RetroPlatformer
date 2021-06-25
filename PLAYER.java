@@ -10,7 +10,7 @@ class PLAYER extends GAMEOBJECT
     //erzeugt ein GAMEOBJECT mit Spielertextur und -größe
     PLAYER(int [] level)
     {
-        super(0, 0, 1, 2, "player.png");
+        super(0, 320, 1, 2, "player.png", 2);
         textures = new int [144];
         textures = level;
     }
@@ -98,7 +98,7 @@ class PLAYER extends GAMEOBJECT
         }
     }
     
-    //verändert nur die Werte der Positions-Variablen
+    //verändert nur die Werte der Positions-Variablen (der virtuellen Position)
     void setVirtualPosition(int newPosx, int newPosy)
     {
         posx = newPosx;

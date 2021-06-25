@@ -9,6 +9,7 @@ class SCREEN
     private static final int xSize = 16;
     
     private static JFrame window;
+    private static JLayeredPane pane;
     
     //erzeugt das Ausgabefenster
     SCREEN()
@@ -21,12 +22,18 @@ class SCREEN
         window.getContentPane().setBackground(new Color(135, 206, 250));
         Insets i = window.getInsets();
         window.setSize((xSize * tileSize) + 18, (ySize * tileSize) + i.top + 9);
+        pane = window.getLayeredPane();
     }
     
     //gibt das Ausgabefenster zurück
     static JFrame getScreen()
     {
         return window;
+    }
+    //gibt die Anordnungsebene zurück
+    static JLayeredPane getLayeredPane()
+    {
+        return pane;
     }
     
     //gibt die Größe einer Zelle zurück
@@ -43,5 +50,12 @@ class SCREEN
     static int getYSize()
     {
         return ySize;
+    }
+    
+    //entfernt das angegebene JLabel
+    static void remove(JLabel l)
+    {
+        pane.remove(l);
+        pane.repaint();
     }
 }
