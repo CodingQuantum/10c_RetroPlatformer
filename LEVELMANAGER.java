@@ -1,6 +1,8 @@
 
 class LEVELMANAGER
 {
+    static int levelsegmentCount = 2;
+    
     static int [] level0 =
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -45,5 +47,10 @@ class LEVELMANAGER
               return "level1.png";
         }
         return "level0.png";
+    }
+    
+    static int getLevelsegmentCount()
+    {
+        return levelsegmentCount;
     }
 }

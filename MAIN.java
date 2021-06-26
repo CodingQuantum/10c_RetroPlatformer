@@ -108,7 +108,7 @@ class MAIN extends EVENT
     int random()
     {
         Random r = new Random();
-        return r.ints(0, 2).findFirst().getAsInt();
+        return r.ints(0, LEVELMANAGER.getLevelsegmentCount()).findFirst().getAsInt();
     }
     
     //setzt beim Tod des Spielers alle relevanten Werte und Grafiken zurück 
