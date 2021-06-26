@@ -6,11 +6,11 @@ class LEVELSEGMENT
     int position;
     
     //übernimmt angegebene Level-Daten, erzeugt Hinter- und Vordergrund
-    LEVELSEGMENT(int [] initPlatforms, String levelPath, int id)
+    LEVELSEGMENT(int levelsegment, int id)
     {
-        platforms = initPlatforms;
+        platforms = LEVELMANAGER.getLevelData(levelsegment);
         position = id * SCREEN.getXSize() * SCREEN.getTileSize();
-        level = new GAMEOBJECT(position, 0, SCREEN.getXSize(), SCREEN.getYSize(), levelPath, 1);
+        level = new GAMEOBJECT(position, 0, SCREEN.getXSize(), SCREEN.getYSize(), LEVELMANAGER.getLevelPath(levelsegment), 1);
     }
     
     //setzt die Position des Hinter- und Vordergrundes

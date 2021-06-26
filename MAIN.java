@@ -1,6 +1,7 @@
 
 import java.awt.event.KeyEvent;
 import javax.swing.*;
+import java.util.Random;
 
 class MAIN extends EVENT
 {
@@ -9,29 +10,17 @@ class MAIN extends EVENT
     GAMEOBJECT background;
     JLabel score;
     int intScoreValue;
-    int [] textures;
     int levelsegmentNum = 0;
+    int offset = 0;
     
     //ruft Kostruktor von EVENT auf, erzeugt den Spieler, das Testlevel und eine Textanzeige für den Punktestand
     MAIN()
     {
         super();
         
-        //erzeugt das Testlevel
-        textures = new int []
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-        1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 
-        1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1};
-        
-        player = new PLAYER(textures);
+        player = new PLAYER();
         level = new LEVELSEGMENT [1];
-        level[0] = new LEVELSEGMENT(textures, "testlevel.png", 0);
+        level[0] = new LEVELSEGMENT(random(), 0);
         background = new GAMEOBJECT(0, 0, SCREEN.getXSize(), SCREEN.getYSize(), "bg.png", 0);
         
         score = new JLabel("0");
@@ -68,6 +57,9 @@ class MAIN extends EVENT
     @Override
     void Process()
     {
+        //benötigt für sanfte Kamerabewegung
+        int oldPlayerPos = player.posx;
+        
         //berechnet das Levelsegment, in dem sich der Spieler befindet
         int playerPos = player.posx;
         int screenSizex = SCREEN.getXSize() * SCREEN.getTileSize();
@@ -101,12 +93,22 @@ class MAIN extends EVENT
             reset();
         }
         
+        //berechnet Versatz für sanfte Kamerabewegung
+        int deltaPos = player.posx - oldPlayerPos;
+        offset = (int) ((offset + deltaPos * 1.5) / 1.1);
+        
         //setzt die tatsächliche Position aller nicht-Spieler-GAMEOBJECTs (Kameraverfolgung)
-        player.setRealPosition(480, player.posy);
+        player.setRealPosition(480 + offset, player.posy);
         for (int i = 0; i < level.length; i++)
         {
-            level[i].setPosition(480 - player.posx + level[i].position, 0);
+            level[i].setPosition(480 - player.posx + level[i].position + offset, 0);
         }
+    }
+    
+    int random()
+    {
+        Random r = new Random();
+        return r.ints(0, 2).findFirst().getAsInt();
     }
     
     //setzt beim Tod des Spielers alle relevanten Werte und Grafiken zurück 
@@ -126,7 +128,7 @@ class MAIN extends EVENT
         }
         
         level = new LEVELSEGMENT[1];
-        level[0] = new LEVELSEGMENT(textures, "testlevel.png", 0);
+        level[0] = new LEVELSEGMENT(random(), 0);
         levelsegmentNum = 0;
     }
     
@@ -138,7 +140,7 @@ class MAIN extends EVENT
         {
             newLevel[i] = level[i];
         }
-        newLevel[levelsegmentNum + 1] = new LEVELSEGMENT(textures, "testlevel.png", levelsegmentNum + 1);
+        newLevel[levelsegmentNum + 1] = new LEVELSEGMENT(random(), levelsegmentNum + 1);
         levelsegmentNum += 1;
         level = newLevel;
     }
