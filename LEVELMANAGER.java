@@ -3,6 +3,17 @@ class LEVELMANAGER
 {
     static int levelsegmentCount = 3;
     
+    static int [] empty = 
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    
     static int [] level0 =
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -36,6 +47,7 @@ class LEVELMANAGER
         1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 
         1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1};
     
+    //gibt die Daten des angegebenen Levels zurück
     static int [] getLevelData(int level)
     {
         switch (level)
@@ -47,9 +59,10 @@ class LEVELMANAGER
             case 2:
               return level2;
         }
-        return level0;
+        return empty;
     }
     
+    //gibt die Textur des angegebenen Levels zurück
     static String getLevelPath(int level)
     {
         switch (level)
@@ -61,9 +74,10 @@ class LEVELMANAGER
             case 2:
               return "level2.png";
         }
-        return "level0.png";
+        return "";
     }
     
+    //gibt die Anzahl der verschiedenen Levelsegmente zurück
     static int getLevelsegmentCount()
     {
         return levelsegmentCount;

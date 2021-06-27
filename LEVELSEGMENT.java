@@ -1,3 +1,4 @@
+import java.util.Random;
 
 class LEVELSEGMENT
 {
@@ -5,12 +6,13 @@ class LEVELSEGMENT
     int [] platforms;
     int position;
     
-    //übernimmt angegebene Level-Daten, erzeugt Hinter- und Vordergrund
-    LEVELSEGMENT(int levelsegment, int id)
+    //übernimmt zufälliges Level, erzeugt Hinter- und Vordergrund
+    LEVELSEGMENT(int id)
     {
-        platforms = LEVELMANAGER.getLevelData(levelsegment);
+        int random = random(LEVELMANAGER.getLevelsegmentCount());
+        platforms = LEVELMANAGER.getLevelData(random);
         position = id * SCREEN.getXSize() * SCREEN.getTileSize();
-        level = new GAMEOBJECT(position, 0, SCREEN.getXSize(), SCREEN.getYSize(), LEVELMANAGER.getLevelPath(levelsegment), 1);
+        level = new GAMEOBJECT(position, 0, SCREEN.getXSize(), SCREEN.getYSize(), LEVELMANAGER.getLevelPath(random), 1);
     }
     
     //setzt die Position des Hinter- und Vordergrundes
@@ -23,6 +25,14 @@ class LEVELSEGMENT
     void remove()
     {
         level.remove();
+    }
+    
+    //erzeugt eine Zufallszahl zwischen 0 (eingeschlossen) und dem angegebenen Bereich (ausgeschlossen)
+    int random(int range)
+    {
+        Random generator = new Random();
+        int i = generator.nextInt(range);
+        return i;
     }
     
     //berechnet die neue Position eines GAMEOBJECTs unter Berücksichtigung der Kollisionen

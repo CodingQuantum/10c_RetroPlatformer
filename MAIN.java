@@ -1,7 +1,6 @@
 
 import java.awt.event.KeyEvent;
 import javax.swing.*;
-import java.util.Random;
 
 class MAIN extends EVENT
 {
@@ -13,14 +12,17 @@ class MAIN extends EVENT
     int levelsegmentNum = 0;
     int offset = 0;
     
-    //ruft Kostruktor von EVENT auf, erzeugt den Spieler, das Testlevel und eine Textanzeige für den Punktestand
+    //ruft Kostruktor von EVENT auf, erzeugt den Spieler, das Level, den Hintergrund und eine Textanzeige für den Punktestand
     MAIN()
     {
         super();
         
         player = new PLAYER();
+        
         level = new LEVELSEGMENT [1];
-        level[0] = new LEVELSEGMENT(random(), 0);
+        level[0] = new LEVELSEGMENT(0);
+        level[0].setPosition(480 - player.posx, 0);
+        
         background = new GAMEOBJECT(0, 0, SCREEN.getXSize(), SCREEN.getYSize(), "bg.png", 0);
         
         score = new JLabel("0");
@@ -105,12 +107,6 @@ class MAIN extends EVENT
         }
     }
     
-    int random()
-    {
-        Random r = new Random();
-        return r.ints(0, LEVELMANAGER.getLevelsegmentCount()).findFirst().getAsInt();
-    }
-    
     //setzt beim Tod des Spielers alle relevanten Werte und Grafiken zurück 
     void reset()
     {
@@ -128,7 +124,7 @@ class MAIN extends EVENT
         }
         
         level = new LEVELSEGMENT[1];
-        level[0] = new LEVELSEGMENT(random(), 0);
+        level[0] = new LEVELSEGMENT(0);
         levelsegmentNum = 0;
     }
     
@@ -140,7 +136,7 @@ class MAIN extends EVENT
         {
             newLevel[i] = level[i];
         }
-        newLevel[levelsegmentNum + 1] = new LEVELSEGMENT(random(), levelsegmentNum + 1);
+        newLevel[levelsegmentNum + 1] = new LEVELSEGMENT(levelsegmentNum + 1);
         levelsegmentNum += 1;
         level = newLevel;
     }
