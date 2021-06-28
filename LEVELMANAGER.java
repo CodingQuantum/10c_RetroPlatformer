@@ -1,7 +1,7 @@
 
 class LEVELMANAGER
 {
-    private static final int levelsegmentCount = 3;
+    private static final int levelsegmentCount = 4;
     
     private static final int [] empty = 
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -46,7 +46,18 @@ class LEVELMANAGER
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
         1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 
         1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1};
-    
+        
+    private static final int [] level3 = 
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 
+        1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 
+        1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1};
+        
     //gibt die Daten des angegebenen Levels zurück
     static int [] getLevelData(int level)
     {
@@ -58,6 +69,8 @@ class LEVELMANAGER
               return level1;
             case 2:
               return level2;
+            case 3:
+              return level3;
         }
         return empty;
     }
@@ -73,6 +86,8 @@ class LEVELMANAGER
               return "level1.png";
             case 2:
               return "level2.png";
+            case 3:
+              return "level3.png";
         }
         return "";
     }
