@@ -26,7 +26,7 @@ class MAIN extends EVENT
         background = new GAMEOBJECT(0, 0, SCREEN.getXSize(), SCREEN.getYSize(), "bg.png", 0);
         
         score = new JLabel("0");
-        SCREEN.getLayeredPane().add(score, new Integer(3));
+        SCREEN.getLayeredPane().add(score, new Integer(2));
         score.setSize(900, 120);
         score.setLocation(50, 0);
         score.setFont(score.getFont().deriveFont(64.0f));
@@ -57,7 +57,7 @@ class MAIN extends EVENT
     
     //wird ein Mal pro Frame aufgerufen
     @Override
-    void Process()
+    void process()
     {
         //benötigt für sanfte Kamerabewegung
         int oldPlayerPos = player.posx;
@@ -86,7 +86,7 @@ class MAIN extends EVENT
         
         //berechnet die virtuelle Position des Spielers
         player.velocityCalculation(level[index].gameobjectOnGround(player));
-        int [] position = level[index].GameobjectCollision(player);
+        int [] position = level[index].gameobjectCollision(player);
         player.setVirtualPosition(position[0], position[1]);
         
         //prüft, ob der Spieler heruntergefallen ist und ruft gegebenenfalls reset() auf

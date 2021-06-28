@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 
-public class EVENT implements KeyListener
+class EVENT implements KeyListener
 {
     private Timer timer;
     private static final int frameRate = 60;
@@ -16,11 +16,11 @@ public class EVENT implements KeyListener
     {
         screen = new SCREEN();
         
-        timer = new Timer (1000 / frameRate, new ActionListener()
+        timer = new Timer(1000 / frameRate, new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
-                Process();
+                process();
             }
         });
         
@@ -29,7 +29,7 @@ public class EVENT implements KeyListener
     }
     
     //wird ein Mal pro Frame aufgerufen
-    void Process()
+    void process()
     {
         //Override in Main
     }

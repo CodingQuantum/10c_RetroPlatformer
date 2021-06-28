@@ -19,7 +19,6 @@ class SCREEN
         window.setResizable(false);
         window.setVisible(true);
         window.setLayout(null);
-        window.getContentPane().setBackground(new Color(135, 206, 250));
         Insets i = window.getInsets();
         window.setSize((xSize * tileSize) + 18, (ySize * tileSize) + i.top + 9);
         pane = window.getLayeredPane();

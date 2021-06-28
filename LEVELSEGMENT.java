@@ -36,7 +36,7 @@ class LEVELSEGMENT
     }
     
     //berechnet die neue Position eines GAMEOBJECTs unter Berücksichtigung der Kollisionen
-    int [] GameobjectCollision(GAMEOBJECT g)
+    int [] gameobjectCollision(GAMEOBJECT g)
     {
         int blocksx = (g.sizex / SCREEN.getTileSize());
         int blocksy = (g.sizey / SCREEN.getTileSize());
