@@ -63,12 +63,33 @@ class MAIN extends EVENT
     @Override
     void process()
     {
-        //bewegt das Menü aus dem Bild, wenn das Spiel gestartet wurde
+        //bewegt das Menü aus dem Bild, wenn das Spiel gestartet wurde bzw. es hinein, wenn der Spieler heruntergefallen ist
         if (menu.active == false && menu.posx > -1024)
         {
-            menu.posx -= 50;
+            if (200 * Math.sin(0.0015 * -(menu.posx - 1)) < 1)
+            {
+                menu.posx -= 1;
+            }
+            else
+            {
+                menu.posx -= 400 * Math.sin(0.0015 * -(menu.posx - 1));
+            }
+            if (menu.posx < -1024)
+            {
+                menu.posx = -1024;
+            }
             menu.setPosition(menu.posx, menu.posy);
             player.movable = true;
+        }
+        else if (menu.active == true && menu.posx < 0)
+        {
+            menu.posx += 120 * Math.sin(1.57 + (0.0015 * -menu.posx));
+            if (menu.posx > 0)
+            {
+                menu.posx = 0;
+            }
+            menu.setPosition(menu.posx, menu.posy);
+            player.movable = false;
         }
         
         //benötigt für sanfte Kamerabewegung
@@ -106,6 +127,10 @@ class MAIN extends EVENT
         
         //prüft, ob der Spieler heruntergefallen ist und ruft gegebenenfalls reset() auf
         if (player.posy > 800)
+        {
+            menu.active = true;
+        }
+        if (player.posy > 2000)
         {
             reset();
         }

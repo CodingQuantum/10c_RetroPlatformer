@@ -9,7 +9,7 @@ class LEVELSEGMENT
     //übernimmt zufälliges Level, erzeugt Hinter- und Vordergrund
     LEVELSEGMENT(int id)
     {
-        int random = 3;//random(LEVELMANAGER.getLevelsegmentCount());
+        int random = random(LEVELMANAGER.getLevelsegmentCount());
         platforms = LEVELMANAGER.getLevelData(random);
         position = id * SCREEN.getXSize() * SCREEN.getTileSize();
         level = new GAMEOBJECT(position, 0, SCREEN.getXSize(), SCREEN.getYSize(), LEVELMANAGER.getLevelPath(random), 1);
