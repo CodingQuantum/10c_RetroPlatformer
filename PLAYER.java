@@ -72,7 +72,7 @@ class PLAYER extends GAMEOBJECT
         {
             vely = 0;
         }
-        else if (onGround == false && vely < 50)
+        else if (onGround == false)
         {
             vely += gravity;
         }
