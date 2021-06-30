@@ -1,33 +1,47 @@
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-public class MENU implements MouseListener {
-    
+public class MENU extends GAMEOBJECT implements MouseListener
+{
     
     GAMEOBJECT startbutton;
     GAMEOBJECT exitbutton;
+    boolean active = true;
     
+    //erzeugt das Menü mitsamt der Knöpfe
     MENU()
     {
-        startbutton = new GAMEOBJECT(448, 300, 2, 1, "menustart.png", 2);
+        super(0, 0, SCREEN.getXSize(), SCREEN.getYSize(), "bg.png", 2);
+        startbutton = new GAMEOBJECT(448, 300, 2, 1, "menustart.png", 3);
         startbutton.gameObject.addMouseListener(this);
-        exitbutton = new GAMEOBJECT(448, 400, 2, 1, "menuexit.png", 2);
+        exitbutton = new GAMEOBJECT(448, 400, 2, 1, "menuexit.png", 3);
         exitbutton.gameObject.addMouseListener(this);
     }
     
+    //sollte ein Knopf gedrückt werde, wird die dazugehörige Aktion ausgeführt
     public void mouseClicked(MouseEvent e)
     {
-        System.out.println(e.getSource());
         if (e.getSource() == startbutton.gameObject)
         {
-            startbutton.remove();
-            MAIN.createMain();
+            active = false;
         }
         else if (e.getSource() == exitbutton.gameObject)
         {
             SCREEN.close();
         }
     }
+    
+    //setzt die Position des gesamten Hauptmenüs
+    @Override
+    void setPosition(int newPosx, int newPosy)
+    {
+        posx = newPosx;
+        posy = newPosy;
+        gameObject.setLocation(posx, posy);
+        startbutton.setPosition(posx + 448, posy + 300);
+        exitbutton.setPosition(posx + 448, posy + 400);
+    }
+    
     public void mousePressed(MouseEvent e)
     {
     }

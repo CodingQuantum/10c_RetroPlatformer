@@ -7,6 +7,7 @@ class MAIN extends EVENT
     PLAYER player;
     LEVELSEGMENT [] level;
     GAMEOBJECT background;
+    MENU menu;
     JLabel score;
     int intScoreValue;
     int levelsegmentNum = 0;
@@ -16,6 +17,8 @@ class MAIN extends EVENT
     MAIN()
     {
         super();
+        
+        menu = new MENU();
         
         player = new PLAYER();
         
@@ -37,11 +40,6 @@ class MAIN extends EVENT
     {
         System.setProperty("sun.java2d.uiScale", "1.0");
         SCREEN screen = new SCREEN();
-        MENU menu = new MENU();
-    }
-    
-    static void createMain()
-    {
         MAIN main = new MAIN();
     }
     
@@ -65,6 +63,14 @@ class MAIN extends EVENT
     @Override
     void process()
     {
+        //bewegt das Menü aus dem Bild, wenn das Spiel gestartet wurde
+        if (menu.active == false && menu.posx > -1024)
+        {
+            menu.posx -= 50;
+            menu.setPosition(menu.posx, menu.posy);
+            player.movable = true;
+        }
+        
         //benötigt für sanfte Kamerabewegung
         int oldPlayerPos = player.posx;
         
@@ -91,7 +97,10 @@ class MAIN extends EVENT
         score.setText(stringScoreValue);
         
         //berechnet die virtuelle Position des Spielers
-        player.velocityCalculation(level[index].gameobjectOnGround(player));
+        if (player.movable == true)
+        {
+            player.velocityCalculation(level[index].gameobjectOnGround(player));
+        }
         int [] position = level[index].gameobjectCollision(player);
         player.setVirtualPosition(position[0], position[1]);
         

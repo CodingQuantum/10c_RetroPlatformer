@@ -31,20 +31,20 @@ public class GAMEOBJECT
     }
     
     //setzt die Position eines GAMEOBJECTs
-    public void setPosition(int newPosx, int newPosy)
+    void setPosition(int newPosx, int newPosy)
     {
         posx = newPosx;
         posy = newPosy;
         gameObject.setLocation(posx, posy);
     }
     //setzt die grafische Position eines GAMEOBJECTs
-    public void setLocation(int newPosx, int newPosy)
+    void setLocation(int newPosx, int newPosy)
     {
         gameObject.setLocation(newPosx, newPosy);
     }
     
     //entfernt die Grafik des GAMEOBJECTs vom Ausgabefenster
-    public void remove()
+    void remove()
     {
         SCREEN.remove(gameObject);
     }
