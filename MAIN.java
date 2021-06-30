@@ -36,6 +36,12 @@ class MAIN extends EVENT
     public static void main(String[] args)
     {
         System.setProperty("sun.java2d.uiScale", "1.0");
+        SCREEN screen = new SCREEN();
+        MENU menu = new MENU();
+    }
+    
+    static void createMain()
+    {
         MAIN main = new MAIN();
     }
     

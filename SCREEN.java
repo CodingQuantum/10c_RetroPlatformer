@@ -20,7 +20,7 @@ class SCREEN
         window.setVisible(true);
         window.setLayout(null);
         Insets i = window.getInsets();
-        window.setSize((xSize * tileSize) + 18, (ySize * tileSize) + i.top + 9);
+        window.setSize((xSize * tileSize) + 16, (ySize * tileSize) + i.top + 9);
         pane = window.getLayeredPane();
     }
     
@@ -33,6 +33,12 @@ class SCREEN
     static JLayeredPane getLayeredPane()
     {
         return pane;
+    }
+    
+    //schließt das Ausgabefenster
+    static void close()
+    {
+        window.dispose();
     }
     
     //gibt die Größe einer Zelle zurück

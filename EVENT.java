@@ -9,13 +9,10 @@ class EVENT implements KeyListener
 {
     private Timer timer;
     private static final int frameRate = 60;
-    SCREEN screen;
     
     //ruft Konstruktor von SCREEN auf, erzeugt und startet den Timer für den Aufruf der Methode Process ein Mal pro Frame unf fügt einen KeyListener hinzu
     EVENT()
     {
-        screen = new SCREEN();
-        
         timer = new Timer(1000 / frameRate, new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -24,7 +21,7 @@ class EVENT implements KeyListener
             }
         });
         
-        screen.getScreen().addKeyListener(this);
+        SCREEN.getScreen().addKeyListener(this);
         timer.start();
     }
     
