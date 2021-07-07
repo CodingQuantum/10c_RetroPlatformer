@@ -5,7 +5,7 @@ class PLAYER extends GAMEOBJECT
     int jumpSpeed = 25;
     int gravity = 2;
     boolean a, d, space;
-    boolean movable = false;
+    boolean notMovable = true;
     
     //erzeugt ein GAMEOBJECT mit Spielertextur und -größe
     PLAYER()
@@ -14,46 +14,52 @@ class PLAYER extends GAMEOBJECT
     }
     
     //setzt die Variable einer Taste auf true, wenn die Taste gedrückt wurde
-    void keyTrue(char key)
+    void keyTrue(String key)
     {
         switch (key)
         {
-            case 'a':
+            case "A":
               a = true;
               break;
-            case '1':
+            case "Links":
               a = true;
               break;
-            case 'd':
+            case "D":
               d = true;
               break;
-            case '3':
+            case "Rechts":
               d = true;
               break;
-            case ' ':
+            case "Leertaste":
+              space = true;
+              break;
+            case "Oben":
               space = true;
               break;
         }
     }
     
     //setzt die Variable einer Taste auf false, wenn die Taste losgelassen wurde
-    void keyFalse(char key)
+    void keyFalse(String key)
     {
         switch (key)
         {
-            case 'a':
+            case "A":
               a = false;
               break;
-            case '1':
+            case "Links":
               a = false;
               break;
-            case 'd':
+            case "D":
               d = false;
               break;
-            case '3':
+            case "Rechts":
               d = false;
               break;
-            case ' ':
+            case "Leertaste":
+              space = false;
+              break;
+            case "Oben":
               space = false;
               break;
         }

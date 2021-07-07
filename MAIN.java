@@ -47,16 +47,18 @@ class MAIN extends EVENT
     @Override
     public void keyPressed(KeyEvent key)
     {
-        char keyChar = key.getKeyChar();
-        player.keyTrue(keyChar);
+        int keyInt = key.getKeyCode();
+        String keyText = key.getKeyText(keyInt);
+        player.keyTrue(keyText);
     }
     
     //wird beim Loslassen einer Taste aufgerufen
     @Override
     public void keyReleased(KeyEvent key)
     {
-        char keyChar = key.getKeyChar();
-        player.keyFalse(keyChar);
+        int keyInt = key.getKeyCode();
+        String keyText = key.getKeyText(keyInt);
+        player.keyFalse(keyText);
     }
     
     //wird ein Mal pro Frame aufgerufen
@@ -64,33 +66,8 @@ class MAIN extends EVENT
     void process()
     {
         //bewegt das Menü aus dem Bild, wenn das Spiel gestartet wurde bzw. es hinein, wenn der Spieler heruntergefallen ist
-        if (menu.active == false && menu.posx > -1024)
-        {
-            if (200 * Math.sin(0.0015 * -(menu.posx - 1)) < 1)
-            {
-                menu.posx -= 1;
-            }
-            else
-            {
-                menu.posx -= 400 * Math.sin(0.0015 * -(menu.posx - 1));
-            }
-            if (menu.posx < -1024)
-            {
-                menu.posx = -1024;
-            }
-            menu.setPosition(menu.posx, menu.posy);
-            player.movable = true;
-        }
-        else if (menu.active == true && menu.posx < 0)
-        {
-            menu.posx += 120 * Math.sin(1.57 + (0.0015 * -menu.posx));
-            if (menu.posx > 0)
-            {
-                menu.posx = 0;
-            }
-            menu.setPosition(menu.posx, menu.posy);
-            player.movable = false;
-        }
+        menu.process();
+        player.notMovable = menu.active;
         
         //benötigt für sanfte Kamerabewegung
         int oldPlayerPos = player.posx;
@@ -118,7 +95,7 @@ class MAIN extends EVENT
         score.setText(stringScoreValue);
         
         //berechnet die virtuelle Position des Spielers
-        if (player.movable == true)
+        if (player.notMovable == false)
         {
             player.velocityCalculation(level[index].gameobjectOnGround(player));
         }
