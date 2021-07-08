@@ -7,18 +7,21 @@ class MAIN extends EVENT
     PLAYER player;
     LEVELSEGMENT [] level;
     GAMEOBJECT background;
-    MENU menu;
+    MAINMENU mainmenu;
+    DEATHSCREEN deathscreen;
     JLabel score;
     int intScoreValue;
     int levelsegmentNum = 0;
     int offset = 0;
     
-    //ruft Kostruktor von EVENT auf, erzeugt den Spieler, das Level, den Hintergrund und eine Textanzeige für den Punktestand
+    //ruft Kostruktor von EVENT auf, erzeugt das Hauptmenü, die Todesanzeige, den Spieler,
+    //das Level, den Hintergrundund eine Textanzeige für den Punktestand
     MAIN()
     {
         super();
         
-        menu = new MENU();
+        mainmenu = new MAINMENU();
+        deathscreen = new DEATHSCREEN();
         
         player = new PLAYER();
         
@@ -65,9 +68,23 @@ class MAIN extends EVENT
     @Override
     void process()
     {
-        //bewegt das Menü aus dem Bild, wenn das Spiel gestartet wurde bzw. es hinein, wenn der Spieler heruntergefallen ist
-        menu.process();
-        player.notMovable = menu.active;
+        //startet das Hauptmenü, wenn der entsprechende Knopf auf dem DEATHSCREEN-Menü gedrückt wurde, ruft die process-Methoden beider Menüs auf,
+        //deaktiviert die Möglichkeit, den Spieler zu bewegen, wenn ein Menü aktiv ist
+        mainmenu.process();
+        deathscreen.process();
+        if (mainmenu.active == true || deathscreen.active == true)
+        {
+            player.movable = false;
+            if (deathscreen.active == true && deathscreen.exitbutton.pressed == true)
+            {
+                mainmenu.active = true;
+                deathscreen.active = false;
+            }
+        }
+        else
+        {
+            player.movable = true;
+        }
         
         //benötigt für sanfte Kamerabewegung
         int oldPlayerPos = player.posx;
@@ -95,17 +112,18 @@ class MAIN extends EVENT
         score.setText(stringScoreValue);
         
         //berechnet die virtuelle Position des Spielers
-        if (player.notMovable == false)
+        if (player.movable == true)
         {
             player.velocityCalculation(level[index].gameobjectOnGround(player));
         }
+        
         int [] position = level[index].gameobjectCollision(player);
         player.setVirtualPosition(position[0], position[1]);
         
-        //prüft, ob der Spieler heruntergefallen ist und ruft gegebenenfalls reset() auf
+        //prüft, ob der Spieler heruntergefallen ist, startet gegebenenfalls die Todesanzeige und ruft reset() auf
         if (player.posy > 800)
         {
-            menu.active = true;
+            deathscreen.active = true;
         }
         if (player.posy > 2000)
         {

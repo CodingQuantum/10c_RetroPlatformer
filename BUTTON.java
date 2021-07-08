@@ -3,12 +3,13 @@ import java.awt.event.MouseEvent;
 
 class BUTTON extends GAMEOBJECT implements MouseListener
 {
-    boolean pressed = false;
+    boolean pressed;
     
     BUTTON(int initPosx, int initPosy, String texture, int order)
     {
         super(initPosx, initPosy, 2, 1, texture, order);
         gameObject.addMouseListener(this);
+        pressed = false;
     }
     
     @Override
@@ -19,10 +20,10 @@ class BUTTON extends GAMEOBJECT implements MouseListener
     
     public void mouseClicked(MouseEvent e)
     {
-        pressed = true;
     }
     public void mousePressed(MouseEvent e)
     {
+        pressed = true;
     }
     public void mouseReleased(MouseEvent e)
     {

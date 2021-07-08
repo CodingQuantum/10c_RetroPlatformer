@@ -5,7 +5,7 @@ class PLAYER extends GAMEOBJECT
     int jumpSpeed = 25;
     int gravity = 2;
     boolean a, d, space;
-    boolean notMovable = true;
+    boolean movable = true;
     
     //erzeugt ein GAMEOBJECT mit Spielertextur und -größe
     PLAYER()
