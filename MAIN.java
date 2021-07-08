@@ -130,15 +130,29 @@ class MAIN extends EVENT
             reset();
         }
         
-        //berechnet Versatz für sanfte Kamerabewegung
+        //berechnet Versatz für sanfte Kamerabewegung, verhindert das Auftreten eines noch nicht gelösten Fehlers
         int deltaPos = player.posx - oldPlayerPos;
+        if (deltaPos < -10 && player.posx != 0)
+        {
+            player.posx = player.posx + player.velx + SCREEN.getXSize() * SCREEN.getTileSize();
+            deltaPos = player.velx;
+        }
         offset = (int) ((offset + deltaPos * 1.5) / 1.1);
         
         //setzt die tatsächliche Position aller nicht-Spieler-GAMEOBJECTs (Kameraverfolgung)
         player.setRealPosition(480 + offset, player.posy);
-        for (int i = 0; i < level.length; i++)
+        if (index >= 1 && level.length >= 3)
         {
-            level[i].setPosition(480 - player.posx + level[i].position + offset, 0);
+            level[index - 1].setPosition(480 - player.posx + level[index - 1].position + offset, 0);
+            level[index].setPosition(480 - player.posx + level[index].position + offset, 0);
+            level[index + 1].setPosition(480 - player.posx + level[index + 1].position + offset, 0);
+        }
+        else
+        {
+            for (int i = 0; i < level.length; i++)
+            {
+                level[i].setPosition(480 - player.posx + level[i].position + offset, 0);
+            }
         }
     }
     
