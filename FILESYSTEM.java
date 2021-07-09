@@ -51,7 +51,9 @@ public class FILESYSTEM {
             {
                 String encryptedText = encrypt(data[i]);
                 bufferedWriter.write(encryptedText);
+                bufferedWriter.newLine();
             }
+            bufferedWriter.write("Do not change this file!");
             bufferedWriter.close();
         }
         catch(IOException ex)
