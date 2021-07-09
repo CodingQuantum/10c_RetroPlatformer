@@ -9,16 +9,21 @@ class MAIN extends EVENT
     GAMEOBJECT background;
     MAINMENU mainmenu;
     DEATHSCREEN deathscreen;
+    FILESYSTEM filesystem;
     JLabel score;
+    JLabel highscore;
     int intScoreValue;
+    int intHighscoreValue = 0;
     int levelsegmentNum = 0;
     int offset = 0;
     
-    //ruft Kostruktor von EVENT auf, erzeugt das Hauptmenü, die Todesanzeige, den Spieler,
-    //das Level, den Hintergrundund eine Textanzeige für den Punktestand
+    //ruft Kostruktor von EVENT auf, legt das Dateisystem an, erzeugt das Hauptmenü, die Todesanzeige, den Spieler,
+    //das Level, den Hintergrundund eine Textanzeige für den Punktestand, sowie für den Highscore
     MAIN()
     {
         super();
+        
+        filesystem = new FILESYSTEM();
         
         mainmenu = new MAINMENU();
         deathscreen = new DEATHSCREEN();
@@ -36,6 +41,13 @@ class MAIN extends EVENT
         score.setSize(900, 120);
         score.setLocation(50, 0);
         score.setFont(score.getFont().deriveFont(64.0f));
+        
+        intHighscoreValue = Integer.parseInt(filesystem.data[0]);
+        highscore = new JLabel(filesystem.data[0]);
+        SCREEN.getLayeredPane().add(highscore, new Integer(2));
+        highscore.setSize(900, 120);
+        highscore.setLocation(50, 100);
+        highscore.setFont(highscore.getFont().deriveFont(64.0f));
     }
     
     //sorgt für richtige Skalierung des Fensters, erzeugt ein Objekt der Klasse MAIN
@@ -107,9 +119,15 @@ class MAIN extends EVENT
         if ((player.posx / 100) * 10 > intScoreValue)
         {
             intScoreValue = (player.posx / 100) * 10;
+            String stringScoreValue = String.valueOf(intScoreValue);
+            score.setText(stringScoreValue);
         }
-        String stringScoreValue = String.valueOf(intScoreValue);
-        score.setText(stringScoreValue);
+        if (intScoreValue > intHighscoreValue)
+        {
+            intHighscoreValue = intScoreValue;
+            String stringHighscoreValue = String.valueOf(intHighscoreValue);
+            highscore.setText(stringHighscoreValue);
+        }
         
         //berechnet die virtuelle Position des Spielers
         if (player.movable == true)
@@ -132,7 +150,7 @@ class MAIN extends EVENT
         
         //berechnet Versatz für sanfte Kamerabewegung, verhindert das Auftreten eines noch nicht gelösten Fehlers
         int deltaPos = player.posx - oldPlayerPos;
-        if (deltaPos < -10 && player.posx != 0)
+        if (deltaPos < -player.speed - 1 && player.posx != 0)
         {
             player.posx = player.posx + player.velx + SCREEN.getXSize() * SCREEN.getTileSize();
             deltaPos = player.velx;
@@ -156,7 +174,7 @@ class MAIN extends EVENT
         }
     }
     
-    //setzt beim Tod des Spielers alle relevanten Werte und Grafiken zurück 
+    //setzt beim Tod des Spielers alle relevanten Werte und Grafiken zurück, speichert den Highscore
     void reset()
     {
         player.posx = 0;
@@ -175,6 +193,9 @@ class MAIN extends EVENT
         level = new LEVELSEGMENT[1];
         level[0] = new LEVELSEGMENT(0);
         levelsegmentNum = 0;
+        
+        filesystem.data[0] = String.valueOf(intHighscoreValue);
+        filesystem.writeFile();
     }
     
     //fügt ein Levelsegment zum bestehenden Level hinzu
