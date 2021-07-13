@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Random;
 
 public class FILESYSTEM {
     
@@ -22,7 +23,7 @@ public class FILESYSTEM {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             for (int i = 0; i < data.length; i++)
             {
-                data[i] = decrypt(bufferedReader.readLine());
+                data[i] = decryptNumber(decryptText(bufferedReader.readLine()));
             }
             bufferedReader.close();
         }
@@ -49,7 +50,7 @@ public class FILESYSTEM {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             for (int i = 0; i < data.length; i++)
             {
-                String encryptedText = encrypt(data[i]);
+                String encryptedText = encryptToText(encryptToNumber(data[i]));
                 bufferedWriter.write(encryptedText);
                 bufferedWriter.newLine();
             }
@@ -64,8 +65,27 @@ public class FILESYSTEM {
         }
     }
     
-    //verschlüsselt den angegebenen Text
-    String encrypt(String text)
+    //verschlüsselt die Zahl auf Basis zufälliger Werte, die in der verschlüsselten Zahl mit enthalten sind
+    String encryptToNumber(String text)
+    {
+        int number = Integer.parseInt(text);
+        
+        int plus = random(1001);
+        int times = random(101);
+        String plusString = String.valueOf(plus);
+        String timesString = String.valueOf(times);
+        if (plus < 10) {plusString = "00" + plusString;}
+        else if (plus < 100) {plusString = "0" + plusString;}
+        if (times < 10) {timesString = "00" + timesString;}
+        else if (times < 100) {timesString = "0" + timesString;}
+        
+        int encryptedNumberInt = number * times + plus;
+        String encryptedNumber = plusString + timesString + String.valueOf(encryptedNumberInt);
+        return encryptedNumber;
+    }
+    
+    //wandelt Ziffern in Sonderzeichen um
+    String encryptToText(String text)
     {
         String encryptedText = "";
         char [] letters = text.toCharArray();
@@ -78,8 +98,22 @@ public class FILESYSTEM {
         return encryptedText;
     }
     
-    //entschlüsselt den angegebenen Text
-    String decrypt(String text)
+    //entschlüsselt die Zahl auf Basis der in der Zahl angegebenen Werte
+    String decryptNumber(String text)
+    {
+        char [] l = text.toCharArray();
+        int plus = Integer.parseInt(String.valueOf(l[0]) + String.valueOf(l[1]) + String.valueOf(l[2]));
+        int times = Integer.parseInt(String.valueOf(l[3]) + String.valueOf(l[4]) + String.valueOf(l[5]));
+        String numberString = "";
+        for (int i = 6; i < l.length; i++) {numberString += l[i];}
+        int number = (Integer.parseInt(numberString) - plus) / times;
+        numberString = String.valueOf(number);
+        
+        return numberString;
+    }
+    
+    //wandelt Sonderzeichen in Ziffern um
+    String decryptText(String text)
     {
         String decryptedText = "";
         char [] letters = text.toCharArray();
@@ -89,7 +123,7 @@ public class FILESYSTEM {
             if (index.equals("-1") == true)
             {
                 System.out.println("Decryption failure - file has been changed");
-                return "0";
+                return "0000010";
             }
             decryptedText += index;
         }
@@ -108,5 +142,13 @@ public class FILESYSTEM {
             }
         }
         return -1;
+    }
+    
+    //erzeugt eine Zufallszahl zwischen 0 (eingeschlossen) und dem angegebenen Bereich (ausgeschlossen)
+    int random(int range)
+    {
+        Random generator = new Random();
+        int i = generator.nextInt(range);
+        return i;
     }
 }

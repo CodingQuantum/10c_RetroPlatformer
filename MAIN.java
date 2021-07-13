@@ -127,6 +127,7 @@ class MAIN extends EVENT
             intHighscoreValue = intScoreValue;
             String stringHighscoreValue = String.valueOf(intHighscoreValue);
             highscore.setText(stringHighscoreValue);
+            filesystem.data[0] = stringHighscoreValue;
         }
         
         //berechnet die virtuelle Position des Spielers
