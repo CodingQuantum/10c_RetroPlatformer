@@ -55,6 +55,7 @@ class MAIN extends EVENT
     {
         System.setProperty("sun.java2d.uiScale", "1.0");
         SCREEN screen = new SCREEN();
+        //GAMEOBJECT splashscreen = new GAMEOBJECT(0, 0, SCREEN.getXSize(), SCREEN.getYSize(), "bg.png", 8);
         MAIN main = new MAIN();
     }
     

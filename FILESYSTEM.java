@@ -116,6 +116,7 @@ public class FILESYSTEM {
     String decryptText(String text)
     {
         String decryptedText = "";
+        if (text == null) {return "0000010";}
         char [] letters = text.toCharArray();
         for (int i = 0; i < letters.length; i++)
         {
