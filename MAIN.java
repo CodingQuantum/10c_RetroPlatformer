@@ -48,6 +48,8 @@ class MAIN extends EVENT
         highscore.setSize(900, 120);
         highscore.setLocation(50, 100);
         highscore.setFont(highscore.getFont().deriveFont(64.0f));
+        
+        timer.start();
     }
     
     //sorgt für richtige Skalierung des Fensters, erzeugt ein Objekt der Klasse MAIN
