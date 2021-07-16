@@ -70,8 +70,8 @@ public class FILESYSTEM {
     {
         int number = Integer.parseInt(text);
         
-        int plus = random(1001);
-        int times = random(101);
+        int plus = random(1000) + 1;
+        int times = random(100) + 1;
         String plusString = String.valueOf(plus);
         String timesString = String.valueOf(times);
         if (plus < 10) {plusString = "00" + plusString;}

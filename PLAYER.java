@@ -4,13 +4,14 @@ class PLAYER extends GAMEOBJECT
     int speed = 9;
     int jumpSpeed = 25;
     int gravity = 2;
+    int spawnHeigth = 256;
     boolean a, d, space;
     boolean movable = true;
     
     //erzeugt ein GAMEOBJECT mit Spielertextur und -größe
     PLAYER()
     {
-        super(0, 320, 1, 2, "player.png", 1);
+        super(0, 256, 1, 2, "player.png", 2);
     }
     
     //setzt die Variable einer Taste auf true, wenn die Taste gedrückt wurde

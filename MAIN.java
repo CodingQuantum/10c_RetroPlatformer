@@ -6,10 +6,10 @@ class MAIN extends EVENT
 {
     PLAYER player;
     LEVELSEGMENT [] level;
-    GAMEOBJECT background;
     MAINMENU mainmenu;
     DEATHSCREEN deathscreen;
     FILESYSTEM filesystem;
+    GAMEOBJECT levelstart;
     JLabel score;
     JLabel highscore;
     int intScoreValue;
@@ -28,13 +28,13 @@ class MAIN extends EVENT
         mainmenu = new MAINMENU();
         deathscreen = new DEATHSCREEN();
         
+        levelstart = new GAMEOBJECT(-544, 0, 20, SCREEN.getYSize(), "levelstart.png", 1);
+        
         player = new PLAYER();
         
         level = new LEVELSEGMENT [1];
         level[0] = new LEVELSEGMENT(0);
         level[0].setPosition(480 - player.posx, 0);
-        
-        background = new GAMEOBJECT(0, 0, SCREEN.getXSize(), SCREEN.getYSize(), "bg.png", 0);
         
         score = new JLabel("0");
         SCREEN.getLayeredPane().add(score, new Integer(2));
@@ -172,6 +172,7 @@ class MAIN extends EVENT
         
         //setzt die tatsächliche Position aller nicht-Spieler-GAMEOBJECTs (Kameraverfolgung)
         player.setRealPosition(480 + offset, player.posy);
+        levelstart.setPosition(-800 - player.posx + offset, 0);
         if (index >= 1 && level.length >= 3)
         {
             level[index - 1].setPosition(480 - player.posx + level[index - 1].position + offset, 0);
@@ -191,7 +192,7 @@ class MAIN extends EVENT
     void reset()
     {
         player.posx = 0;
-        player.posy = 320;
+        player.posy = player.spawnHeigth;
         player.vely = 0;
         player.velx = 0;
         
