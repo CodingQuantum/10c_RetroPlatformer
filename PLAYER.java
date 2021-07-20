@@ -25,16 +25,28 @@ class PLAYER extends GAMEOBJECT
             case "Links":
               a = true;
               break;
+            case "Left":
+              a = true;
+              break;
             case "D":
               d = true;
               break;
             case "Rechts":
               d = true;
               break;
+            case "Right":
+              d = true;
+              break;
             case "Leertaste":
               space = true;
               break;
+            case "Space":
+              space = true;
+              break;
             case "Oben":
+              space = true;
+              break;
+            case "Up":
               space = true;
               break;
         }
@@ -51,16 +63,28 @@ class PLAYER extends GAMEOBJECT
             case "Links":
               a = false;
               break;
+            case "Left":
+              a = false;
+              break;
             case "D":
               d = false;
               break;
             case "Rechts":
               d = false;
               break;
+            case "Right":
+              d = false;
+              break;
             case "Leertaste":
               space = false;
               break;
+            case "Space":
+              space = false;
+              break;
             case "Oben":
+              space = false;
+              break;
+            case "Up":
               space = false;
               break;
         }
