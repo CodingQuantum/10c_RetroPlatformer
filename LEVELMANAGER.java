@@ -1,5 +1,5 @@
 
-class LEVELMANAGER
+abstract class LEVELMANAGER
 {
     private static final int levelsegmentCount = 5;
     
@@ -94,15 +94,15 @@ class LEVELMANAGER
         switch (level)
         {
             case 0:
-              return "level0.png";
+              return "graphics/level0.png";
             case 1:
-              return "level1.png";
+              return "graphics/level1.png";
             case 2:
-              return "level2.png";
+              return "graphics/level2.png";
             case 3:
-              return "level3.png";
+              return "graphics/level3.png";
             case 4:
-              return "level4.png";
+              return "graphics/level4.png";
         }
         return "";
     }

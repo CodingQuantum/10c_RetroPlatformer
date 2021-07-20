@@ -6,9 +6,11 @@ class DEATHSCREEN extends MENU
     //erzeugt das Menü, das beim Herunterfallen des Spielers angezeigt wird
     DEATHSCREEN()
     {
-        super(false, 3, "deathscreenbg.png");
-        restartbutton = new BUTTON(448, 300, "deathscreenretry.png", layer + 1);
-        exitbutton = new BUTTON(448, 400, "deathscreenback.png", layer + 1);
+        super(false, 3, "graphics/deathscreenbg.png");
+        restartbutton = new BUTTON(448, 300, "graphics/deathscreenretry.png", layer + 1);
+        exitbutton = new BUTTON(448, 400, "graphics/deathscreenback.png", layer + 1);
+        restartbutton.active = false;
+        exitbutton.active = false;
     }
     
     @Override
@@ -16,10 +18,14 @@ class DEATHSCREEN extends MENU
     {
         move();
         
-        //sollte ein Knopf gedrückt werde, wird die dazugehörige Aktion ausgeführt
+        restartbutton.active = buttonsEnabled;
+        exitbutton.active = buttonsEnabled;
+        
+        //sollte ein Knopf gedrückt werden, wird die dazugehörige Aktion ausgeführt
         if (restartbutton.pressed == true)
         {
             active = false;
+            CLOUDS.reset();
         }
     }
     

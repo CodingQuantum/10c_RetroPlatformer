@@ -4,18 +4,24 @@ import java.awt.event.MouseEvent;
 class BUTTON extends GAMEOBJECT implements MouseListener
 {
     boolean pressed;
+    boolean active;
+    GAMEOBJECT hover;
     
     BUTTON(int initPosx, int initPosy, String texture, int order)
     {
         super(initPosx, initPosy, 2, 1, texture, order);
         gameObject.addMouseListener(this);
         pressed = false;
+        active = true;
+        hover = new GAMEOBJECT(initPosx, initPosy, 2, 1, "graphics/hoverButton.png", order + 1);
+        hover.gameObject.setVisible(false);
     }
     
     @Override
     void setPosition(int newPosx, int newPosy)
     {
         gameObject.setLocation(newPosx + posx, newPosy + posy);
+        hover.gameObject.setLocation(newPosx + posx, newPosy + posy);
     }
     
     public void mouseClicked(MouseEvent e)
@@ -23,7 +29,7 @@ class BUTTON extends GAMEOBJECT implements MouseListener
     }
     public void mousePressed(MouseEvent e)
     {
-        pressed = true;
+        if(active == true) {pressed = true;}
     }
     public void mouseReleased(MouseEvent e)
     {
@@ -31,8 +37,10 @@ class BUTTON extends GAMEOBJECT implements MouseListener
     }
     public void mouseEntered(MouseEvent e)
     {
+        hover.gameObject.setVisible(true);
     }
     public void mouseExited(MouseEvent e)
     {
+        hover.gameObject.setVisible(false);
     }
 }

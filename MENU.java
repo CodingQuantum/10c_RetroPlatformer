@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 public class MENU extends GAMEOBJECT
 {
     boolean active;
+    boolean buttonsEnabled;
     int tick;
     int layer;
     
@@ -39,6 +40,9 @@ public class MENU extends GAMEOBJECT
         {
             tick = 0;
         }
+        
+        if (posx == 0) {buttonsEnabled = true;}
+        else {buttonsEnabled = false;}
     }
     
     //setzt die Position des gesamten Menüs

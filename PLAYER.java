@@ -11,7 +11,7 @@ class PLAYER extends GAMEOBJECT
     //erzeugt ein GAMEOBJECT mit Spielertextur und -größe
     PLAYER()
     {
-        super(0, 256, 1, 2, "player.png", 2);
+        super(0, 256, 1, 2, "graphics/player.png", 2);
     }
     
     //setzt die Variable einer Taste auf true, wenn die Taste gedrückt wurde

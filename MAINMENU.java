@@ -6,9 +6,9 @@ class MAINMENU extends MENU
     //erzeugt das Hauptmenü
     MAINMENU()
     {
-        super(true, 5, "menubg.png");
-        startbutton = new BUTTON(700, 300, "menustart.png", layer + 1);
-        exitbutton = new BUTTON(700, 400, "menuexit.png", layer + 1);
+        super(true, 5, "graphics/menubg.png");
+        startbutton = new BUTTON(700, 300, "graphics/menustart.png", layer + 1);
+        exitbutton = new BUTTON(700, 400, "graphics/menuexit.png", layer + 1);
     }
     
     @Override
@@ -16,7 +16,10 @@ class MAINMENU extends MENU
     {
         move();
         
-        //sollte ein Knopf gedrückt werde, wird die dazugehörige Aktion ausgeführt
+        startbutton.active = buttonsEnabled;
+        exitbutton.active = buttonsEnabled;
+        
+        //sollte ein Knopf gedrückt werden, wird die dazugehörige Aktion ausgeführt
         if (startbutton.pressed == true)
         {
             active = false;

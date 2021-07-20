@@ -10,6 +10,7 @@ class MAIN extends EVENT
     DEATHSCREEN deathscreen;
     FILESYSTEM filesystem;
     GAMEOBJECT levelstart;
+    CLOUDS clouds;
     JLabel score;
     JLabel highscore;
     int intScoreValue;
@@ -28,7 +29,8 @@ class MAIN extends EVENT
         mainmenu = new MAINMENU();
         deathscreen = new DEATHSCREEN();
         
-        levelstart = new GAMEOBJECT(-544, 0, 20, SCREEN.getYSize(), "levelstart.png", 1);
+        levelstart = new GAMEOBJECT(-544, 0, 20, SCREEN.getYSize(), "graphics/levelstart.png", 1);
+        clouds = new CLOUDS();
         
         player = new PLAYER();
         
@@ -57,16 +59,6 @@ class MAIN extends EVENT
     {
         System.setProperty("sun.java2d.uiScale", "1.0");
         SCREEN screen = new SCREEN();
-        //GAMEOBJECT splashscreen = new GAMEOBJECT(0, 0, SCREEN.getXSize(), SCREEN.getYSize(), "bg.png", 8);
-        //try
-        //{
-        //     Thread.sleep(4000);
-        //} 
-        //catch (InterruptedException e)
-        //{
-        //     e.printStackTrace();
-        //}
-        //splashscreen.remove();
         MAIN main = new MAIN();
     }
     
@@ -99,10 +91,10 @@ class MAIN extends EVENT
         if (mainmenu.active == true || deathscreen.active == true)
         {
             player.movable = false;
-            if (deathscreen.active == true && deathscreen.exitbutton.pressed == true)
+            if (deathscreen.exitbutton.pressed == true)
             {
-                mainmenu.active = true;
                 deathscreen.active = false;
+                mainmenu.active = true;
             }
         }
         else
@@ -112,7 +104,7 @@ class MAIN extends EVENT
         
         //benötigt für sanfte Kamerabewegung
         int oldPlayerPos = player.posx;
-        
+               
         //berechnet das Levelsegment, in dem sich der Spieler befindet
         int playerPos = player.posx;
         int screenSizex = SCREEN.getXSize() * SCREEN.getTileSize();
@@ -147,19 +139,8 @@ class MAIN extends EVENT
         {
             player.velocityCalculation(level[index].gameobjectOnGround(player));
         }
-        
         int [] position = level[index].gameobjectCollision(player);
         player.setVirtualPosition(position[0], position[1]);
-        
-        //prüft, ob der Spieler heruntergefallen ist, startet gegebenenfalls die Todesanzeige und ruft reset() auf
-        if (player.posy > 800)
-        {
-            deathscreen.active = true;
-        }
-        if (player.posy > 2000)
-        {
-            reset();
-        }
         
         //berechnet Versatz für sanfte Kamerabewegung, verhindert das Auftreten eines noch nicht gelösten Fehlers
         int deltaPos = player.posx - oldPlayerPos;
@@ -173,6 +154,7 @@ class MAIN extends EVENT
         //setzt die tatsächliche Position aller nicht-Spieler-GAMEOBJECTs (Kameraverfolgung)
         player.setRealPosition(480 + offset, player.posy);
         levelstart.setPosition(-800 - player.posx + offset, 0);
+        clouds.process(offset, deltaPos);
         if (index >= 1 && level.length >= 3)
         {
             level[index - 1].setPosition(480 - player.posx + level[index - 1].position + offset, 0);
@@ -186,6 +168,20 @@ class MAIN extends EVENT
                 level[i].setPosition(480 - player.posx + level[i].position + offset, 0);
             }
         }
+        
+        //prüft, ob der Spieler heruntergefallen ist, startet gegebenenfalls die Todesanzeige und ruft reset() auf
+        if (player.posy >= 410)
+        {
+            if (player.posy <= 600) {deathscreen.active = true;}
+            player.movable = false;
+            player.velx = 0;
+            player.gameObject.setLocation((int) (player.gameObject.getLocation().getX()), 410);
+        }
+        if (deathscreen.restartbutton.pressed == true || mainmenu.startbutton.pressed == true)
+        {
+            reset();
+        }
+        
     }
     
     //setzt beim Tod des Spielers alle relevanten Werte und Grafiken zurück, speichert den Highscore
@@ -210,6 +206,8 @@ class MAIN extends EVENT
         
         filesystem.data[0] = String.valueOf(intHighscoreValue);
         filesystem.writeFile();
+        
+        offset = 0;
     }
     
     //fügt ein Levelsegment zum bestehenden Level hinzu
