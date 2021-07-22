@@ -1,6 +1,6 @@
-
 import java.awt.event.KeyEvent;
 import javax.swing.*;
+import java.awt.*;
 
 class MAIN extends EVENT
 {
@@ -12,7 +12,6 @@ class MAIN extends EVENT
     GAMEOBJECT levelstart;
     CLOUDS clouds;
     JLabel score;
-    JLabel highscore;
     int intScoreValue;
     int intHighscoreValue = 0;
     int levelsegmentNum = 0;
@@ -26,9 +25,6 @@ class MAIN extends EVENT
         
         filesystem = new FILESYSTEM();
         
-        mainmenu = new MAINMENU();
-        deathscreen = new DEATHSCREEN();
-        
         levelstart = new GAMEOBJECT(-544, 0, 20, SCREEN.getYSize(), "graphics/levelstart.png", 1);
         clouds = new CLOUDS();
         
@@ -41,15 +37,14 @@ class MAIN extends EVENT
         score = new JLabel("0");
         SCREEN.getLayeredPane().add(score, new Integer(2));
         score.setSize(900, 120);
-        score.setLocation(50, 0);
-        score.setFont(score.getFont().deriveFont(64.0f));
+        score.setLocation(50, 20);
+        score.setFont(new Font("Impact", Font.BOLD, 84));
+        score.setForeground(new Color(29, 63, 89));
         
         intHighscoreValue = Integer.parseInt(filesystem.data[0]);
-        highscore = new JLabel(filesystem.data[0]);
-        SCREEN.getLayeredPane().add(highscore, new Integer(2));
-        highscore.setSize(900, 120);
-        highscore.setLocation(50, 100);
-        highscore.setFont(highscore.getFont().deriveFont(64.0f));
+        
+        mainmenu = new MAINMENU(intHighscoreValue);
+        deathscreen = new DEATHSCREEN();
         
         timer.start();
     }
@@ -93,6 +88,8 @@ class MAIN extends EVENT
             player.movable = false;
             if (deathscreen.exitbutton.pressed == true)
             {
+                filesystem.data[0] = String.valueOf(intHighscoreValue);
+                filesystem.writeFile();
                 deathscreen.active = false;
                 mainmenu.active = true;
             }
@@ -130,7 +127,7 @@ class MAIN extends EVENT
         {
             intHighscoreValue = intScoreValue;
             String stringHighscoreValue = String.valueOf(intHighscoreValue);
-            highscore.setText(stringHighscoreValue);
+            mainmenu.highscore.setText(stringHighscoreValue);
             filesystem.data[0] = stringHighscoreValue;
         }
         
