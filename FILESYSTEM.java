@@ -102,6 +102,7 @@ public class FILESYSTEM {
     String decryptNumber(String text)
     {
         char [] l = text.toCharArray();
+        if (l.length == 0) {return "0";}
         int plus = Integer.parseInt(String.valueOf(l[0]) + String.valueOf(l[1]) + String.valueOf(l[2]));
         int times = Integer.parseInt(String.valueOf(l[3]) + String.valueOf(l[4]) + String.valueOf(l[5]));
         String numberString = "";

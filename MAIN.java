@@ -44,7 +44,7 @@ class MAIN extends EVENT
         intHighscoreValue = Integer.parseInt(filesystem.data[0]);
         
         mainmenu = new MAINMENU(intHighscoreValue);
-        deathscreen = new DEATHSCREEN();
+        deathscreen = new DEATHSCREEN(intHighscoreValue);
         
         timer.start();
     }
@@ -122,12 +122,14 @@ class MAIN extends EVENT
             intScoreValue = (player.posx / 100) * 10;
             String stringScoreValue = String.valueOf(intScoreValue);
             score.setText(stringScoreValue);
+            deathscreen.score.setText(stringScoreValue);
         }
         if (intScoreValue > intHighscoreValue)
         {
             intHighscoreValue = intScoreValue;
             String stringHighscoreValue = String.valueOf(intHighscoreValue);
             mainmenu.highscore.setText(stringHighscoreValue);
+            deathscreen.highscore.setText(stringHighscoreValue);
             filesystem.data[0] = stringHighscoreValue;
         }
         

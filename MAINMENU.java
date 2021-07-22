@@ -13,6 +13,7 @@ class MAINMENU extends MENU
         super(true, 5, "graphics/menubg.png");
         startbutton = new BUTTON(770, 300, "graphics/menustart.png", layer + 1);
         exitbutton = new BUTTON(770, 400, "graphics/menuexit.png", layer + 1);
+        
         highscore = new JLabel(String.valueOf(highscoreValue));
         SCREEN.getLayeredPane().add(highscore, new Integer(6));
         highscore.setSize(900, 120);

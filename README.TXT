@@ -1,14 +1,4 @@
-------------------------------------------------------------------------
-Dies ist die README-Datei des Projekts. Hier sollten Sie Ihr Projekt
-beschreiben.
-Erzählen Sie dem Leser (jemand, der nichts über dieses Projekt weiss),
-alles, was er/sie wissen muss. Üblicherweise sollte der Kommentar 
-zumindest die folgenden Angaben umfassen:
-------------------------------------------------------------------------
-
-PROJEKTBEZEICHNUNG:
-PROJEKTZWECK:
-VERSION oder DATUM:
-WIE IST DAS PROJEKT ZU STARTEN:
-AUTOR(EN):
-BENUTZERHINWEISE:
+NAME OF PROJECT: RetroPlatfomer
+PURPOSE: School project, Jump'n'Run-Game
+DATE (GERMAN NOTATION): 22.07.2021
+HOW TO START THE PROJECT: call method "void main(String [] args)", belongs to class MAIN, no arguments needed
