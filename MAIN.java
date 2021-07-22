@@ -179,6 +179,8 @@ class MAIN extends EVENT
         if (deathscreen.restartbutton.pressed == true || mainmenu.startbutton.pressed == true)
         {
             reset();
+            deathscreen.restartbutton.pressed = false;
+            mainmenu.startbutton.pressed = false;
         }
         
     }
