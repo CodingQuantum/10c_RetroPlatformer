@@ -7,6 +7,7 @@ class BUTTON extends GAMEOBJECT implements MouseListener
     boolean active;
     GAMEOBJECT hover;
     
+    //erzeugt einen Knopf
     BUTTON(int initPosx, int initPosy, String texture, int order)
     {
         super(initPosx, initPosy, 2, 1, texture, order);
@@ -17,6 +18,7 @@ class BUTTON extends GAMEOBJECT implements MouseListener
         hover.gameObject.setVisible(false);
     }
     
+    //setzt die Position aller Teile des Knopfes
     @Override
     void setPosition(int newPosx, int newPosy)
     {
@@ -24,6 +26,7 @@ class BUTTON extends GAMEOBJECT implements MouseListener
         hover.gameObject.setLocation(newPosx + posx, newPosy + posy);
     }
     
+    //setzt die jeweilige Variable beim Klicken, Hineinbewegen der Maus etc.
     public void mouseClicked(MouseEvent e)
     {
     }

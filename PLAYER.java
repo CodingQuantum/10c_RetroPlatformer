@@ -1,4 +1,3 @@
-
 class PLAYER extends GAMEOBJECT
 {
     int speed = 9;

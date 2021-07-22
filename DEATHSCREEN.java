@@ -37,6 +37,7 @@ class DEATHSCREEN extends MENU
     {
         move();
         
+        //Knöpfe können nur gedrückt werden, wenn das Menü vollständig angezeigt wird
         restartbutton.active = buttonsEnabled;
         exitbutton.active = buttonsEnabled;
         

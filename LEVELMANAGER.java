@@ -1,4 +1,3 @@
-
 abstract class LEVELMANAGER
 {
     private static final int levelsegmentCount = 5;

@@ -18,7 +18,7 @@ class MAIN extends EVENT
     int offset = 0;
     
     //ruft Kostruktor von EVENT auf, legt das Dateisystem an, erzeugt das Hauptmenü, die Todesanzeige, den Spieler,
-    //das Level, den Hintergrundund eine Textanzeige für den Punktestand, sowie für den Highscore
+    //das Level, den Hintergrundund und eine Textanzeige für den Punktestand
     MAIN()
     {
         super();
@@ -79,8 +79,8 @@ class MAIN extends EVENT
     @Override
     void process()
     {
-        //startet das Hauptmenü, wenn der entsprechende Knopf auf dem DEATHSCREEN-Menü gedrückt wurde, ruft die process-Methoden beider Menüs auf,
-        //deaktiviert die Möglichkeit, den Spieler zu bewegen, wenn ein Menü aktiv ist
+        //startet das Hauptmenü, wenn der entsprechende Knopf auf dem DEATHSCREEN-Menü gedrückt wurde, ruft die process-Methoden beider Menüs
+        //und der Wolken auf, deaktiviert die Möglichkeit, den Spieler zu bewegen, wenn ein Menü aktiv ist, bewegt Spieler bzw. die anderen Objekte
         mainmenu.process();
         deathscreen.process();
         if (mainmenu.active == true || deathscreen.active == true)
@@ -102,7 +102,7 @@ class MAIN extends EVENT
         //benötigt für sanfte Kamerabewegung
         int oldPlayerPos = player.posx;
                
-        //berechnet das Levelsegment, in dem sich der Spieler befindet
+        //berechnet das Levelsegment, in dem sich der Spieler befindet, fügt gegebenenfalls neue Levelsegmente hinzu
         int playerPos = player.posx;
         int screenSizex = SCREEN.getXSize() * SCREEN.getTileSize();
         int index = 0;
@@ -116,7 +116,7 @@ class MAIN extends EVENT
             addLevelsegment();
         }
         
-        //zeigt den Punktestand an
+        //berechnet den Punktestand und zeigt ihn an
         if ((player.posx / 100) * 10 > intScoreValue)
         {
             intScoreValue = (player.posx / 100) * 10;
@@ -185,7 +185,7 @@ class MAIN extends EVENT
         
     }
     
-    //setzt beim Tod des Spielers alle relevanten Werte und Grafiken zurück, speichert den Highscore
+    //setzt beim Neustart alle relevanten Werte und Grafiken zurück, speichert den Highscore
     void reset()
     {
         player.posx = 0;

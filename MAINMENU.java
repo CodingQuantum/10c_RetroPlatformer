@@ -27,6 +27,7 @@ class MAINMENU extends MENU
     {
         move();
         
+        //Knöpfe können nur gedrückt werden, wenn das Menü vollständig angezeigt wird
         startbutton.active = buttonsEnabled;
         exitbutton.active = buttonsEnabled;
         
